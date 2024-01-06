@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
 import { Alert, StyleSheet, View } from "react-native";
 import { Button, Input } from "react-native-elements";
+import Avatar from "./Avatar";
 
 export default function Profile({ session }: { session: Session }) {
   const [loading, setLoading] = useState(false);
@@ -87,7 +88,16 @@ export default function Profile({ session }: { session: Session }) {
           onChangeText={(text) => setWebsite(text)}
         />
       </View>
-
+      <View>
+        <Avatar
+          size={200}
+          url={avatarUrl}
+          onUpload={(url: string) => {
+            setAvatarUrl(url);
+            updateProfile({ username, website, avatarUrl: url });
+          }}
+        />
+      </View>
       <View style={[styles.verticallySpaced, styles.mt20]}>
         <Button
           title={loading ? "Loading ..." : "Update"}
