@@ -1,5 +1,5 @@
 import { Session } from "@supabase/supabase-js";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
 import { Alert, StyleSheet, View } from "react-native";
 import { Button, Input } from "react-native-elements";
@@ -63,6 +63,10 @@ export default function Profile({ session }: { session: Session }) {
       setLoading(false);
     }
   }
+
+  useEffect(() => {
+    if (session) getProfile();
+  }, [session]);
 
   return (
     <View style={styles.container}>
